@@ -1,2 +1,2 @@
-# Cricket: Every International Innings (1981-2022)
- dataset to analyze players, performance of cricket championship
+# Supermart Grocery Sales - Retail Analytics Dataset
+https://www.kaggle.com/datasets/mohamedharris/supermart-grocery-sales-retail-analytics-dataset
