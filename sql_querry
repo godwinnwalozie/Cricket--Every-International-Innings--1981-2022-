@@ -1,0 +1,62 @@
+-- creating the table
+ /* CREATE TABLE */
+CREATE TABLE IF NOT EXISTS record(
+OrderID VARCHAR,
+CustomerName VARCHAR,
+Category VARCHAR,
+SubCategory VARCHAR,
+City VARCHAR,
+OrderDate Date,
+Region VARCHAR,
+Sales NUMERIC,
+Discount DECIMAL,
+Profit NUMERIC,
+State VARCHAR
+);
+
+drop table if exists record;
+
+
+copy record from 'C:\Users\godwi\GitHub\Supermart Grocery Sales - Retail Analytics Dataset\Supermart Grocery Sales - Retail Analytics Dataset.csv' delimiter ',' csv header;
+
+
+create or replace view fulldata as
+select * from record
+
+create or replace view profit_product as
+--1 Which category of product is most profitable
+select category, sum(profit) from record
+group by category
+order by sum (profit) desc;
+
+create or replace view profit_subproduct as
+--2  Which subcategory of product is most profitable
+select subcategory, sum(profit) from record
+group by subcategory
+order by  sum (profit) desc;
+
+create or replace view state_profit as
+--3 which region by state made highest and lowest profit ?
+select region, sum(profit) from record
+group by region
+order by sum(profit) desc;
+
+create or replace view sales_volume as
+--4 Average sales volume for each year?
+select extract(year from orderdate), sum(profit) from record
+group by extract(year from orderdate)
+order by sum(profit) desc;
+
+
+create or replace view unique_customer as
+-- 5 Any unique name of repeating customer
+select distinct customername, count (customername) from record
+group by distinct customername
+order by count (customername) desc;
+
+create or replace view discounted_product as
+--6 Most dicounted product category
+select category, sum(discount) from record
+group by (category)
+order by sum(discount) desc;
+
